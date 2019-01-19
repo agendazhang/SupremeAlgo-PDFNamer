@@ -1,35 +1,68 @@
 var BUTTONID = 0;
 
 function loadStorage() {
-    var size = chrome.storage.sync.get(["size"], function(items){});
-    for (var i = 0; i < size; i++) {
-        var data = chrome.storage.sync.get([i],
-            function(arrayItems) {
-            })
-        var favorites = document.getElementById('addNewControls');
-        var newButton = document.createElement("BUTTON");
-        var text = document.createTextNode(data);
-        newButton.appendChild(text);
-        favorites.appendChild(newButton);
-
-        // newButton.value = data;
-        createNewEventListener(newButton);
-
-        BUTTONID++;
+    var buttonIDMap = chrome.storage.sync.get(['buttonIDMap'], function(items){});
+    alert(buttonIDMap);
+    for (var i in buttonIDMap){
+      alert(i);
     }
+
+    // for (var i = 0; i < size; i++) {
+    //     var data = chrome.storage.sync.get([i],
+    //         function(arrayItems) {
+    //         })
+    //     var favorites = document.getElementById('addNewControls');
+    //     var newButton = document.createElement("BUTTON");
+    //     var text = document.createTextNode(data);
+    //     newButton.appendChild(text);
+    //     favorites.appendChild(newButton);
+    //
+    //     // newButton.value = data;
+    //     createNewEventListener(newButton);
+    //
+    //     BUTTONID++;
+    // }
 }
 
-var count = 1;
+function saveChanges() {
+        // Get a value saved in a form.
+        var theValue = textarea.value;
+        // Check that there's some code there.
+        if (!theValue) {
+          message('Error: No value specified');
+          return;
+        }
+        // Save it using the Chrome extension storage API.
+        chrome.storage.sync.set({'value': theValue}, function() {
+          // Notify that we saved.
+          message('Settings saved');
+        });
+      }
+
+
+var buttonID = 0;
 function create() {
-    var data = document.getElementById('addMeBox').value;
-    document.getElementById('addNewControls').innerHTML+='<input type="button" id="'+count+'" value="'+data+'">';
+    var fileName = document.getElementById('addMeBox').value;
+    document.getElementById('addNewControls').innerHTML+='<input type="button" id="'+buttonID+'" value="'+fileName+'">';
     //e.prventDefault();
-    document.getElementById(""+count).addEventListener('click', function () {
+    document.getElementById(""+buttonID).addEventListener('click', function () {
         var current = document.getElementById('finalTextBox').value;
-        current += data;
+        current += fileName;
         document.getElementById('finalTextBox').value = current;
     });
-    count++;
+
+
+
+    var buttonIDMap = {};
+    buttonIDMap[buttonID] = fileName;
+    // Save it using the Chrome extension storage API.
+    chrome.storage.sync.set({'buttonIDMap': buttonIDMap}, function() {
+      // Notify that we saved.
+      console.log('Settings saved. Button ID =  ' + buttonID + ". fileName = " + fileName);
+      console.log('buttonIDMap' + buttonIDMap[buttonID]);
+    });
+
+    buttonID++;
 }
 
 
@@ -59,7 +92,7 @@ function clickAddMeButton() {
     chrome.storage.sync.set({
         BUTTONID: data
     }, function(){
-    //  A data saved callback omg so fancy
+      message('Settings saved');
     });
     BUTTONID++;
 }
