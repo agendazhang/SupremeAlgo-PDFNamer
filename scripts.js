@@ -1,18 +1,27 @@
 function loadStorage() {
-    chrome.storage.sync.get(['buttonIDMap'], function(result){
-      var buttonIDMap = result.buttonIDMap;
-      for (var key in buttonIDMap){
+  chrome.storage.sync.get(['buttonIDMap'], function(result){
+    var buttonIDMap = result.buttonIDMap;
+    for (var key in buttonIDMap){
+      (function () {
         var buttonID = key;
         var fileName = buttonIDMap[key];
-        document.getElementById('addNewControls').innerHTML+='<input type="button" id="'+buttonID+'" value="'+fileName+'">';
+
+        document.getElementById('addNewControls').insertAdjacentHTML(
+          'beforeend',
+          '<input type="button" id="' + buttonID + '" value="' + fileName + '">'
+        );
         //e.prventDefault();
+
+
         document.getElementById(""+buttonID).addEventListener('click', function () {
-            var current = document.getElementById('finalTextBox').value;
-            current += fileName;
-            document.getElementById('finalTextBox').value = current;
+          var current = document.getElementById('finalTextBox').value;
+
+          current += fileName;
+          document.getElementById('finalTextBox').value = current;
         });
-      }
-    });
+      }()); // immediate invocation
+    }
+  });
 
 
     // for (var i = 0; i < size; i++) {
@@ -59,7 +68,11 @@ function create() {
     }
 
     var fileName = document.getElementById('addMeBox').value;
-    document.getElementById('addNewControls').innerHTML+='<input type="button" id="'+buttonID+'" value="'+fileName+'">';
+    document.getElementById('addNewControls').insertAdjacentHTML(
+      'beforeend',
+      '<input type="button" id="' + buttonID + '" value="' + fileName + '">'
+    );
+
     //e.prventDefault();
     document.getElementById(""+buttonID).addEventListener('click', function () {
         var current = document.getElementById('finalTextBox').value;
@@ -73,7 +86,7 @@ function create() {
     chrome.storage.sync.set({'buttonIDMap': buttonIDMap}, function() {
       // Notify that we saved.
       console.log('Settings saved. Button ID = ' + buttonID + ". fileName = " + fileName);
-      console.log('buttonIDMap' + buttonIDMap[buttonID]);
+      console.log('buttonIDMap: ' + buttonIDMap[buttonID]);
 
       buttonID += 1;
     });
