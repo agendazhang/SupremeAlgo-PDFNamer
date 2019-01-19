@@ -1,0 +1,16 @@
+{
+    "name": "PDF Namer",
+    "version": "1.0",
+    "description": "This extension allows you to save common file names so you can choose them next time to save time.",
+    "manifest_version": 2,
+
+    "background": {
+        "scripts": ["background.js"]
+    },
+    "page_action": {
+        "default_icon": "ct.png",
+        "default_popup": "popup.html",
+        "default_title": "Suggest file names!"
+    },
+    "permissions": ["history", "tabs", "storage", "declarativeContent", "notifications", "contextMenus", "downloads"]
+}
