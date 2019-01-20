@@ -1,4 +1,5 @@
 # Team Name: SupremeAlgo
+# Team members: Zhang Cheng, Yong Xin Shen
 # Project Name: PDFNamer
 # Description: A Google Chrome extension that helps users save time when renaming PDF files when saving them online.
 ==
