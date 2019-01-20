@@ -13,7 +13,8 @@ This chrome extension saves keywords that a user want to repeatedly use when ren
 1. Clone this repo into a local drive.
 2. In Google Chrome, go to `chrome://extensions/` and turn `Developer Mode` to ON. Then click on `Load Unpacked` and add the cloned folder.
 3. Go to a PDF file on a website and open the extension. The extension can only be loaded if it is on a page that ends with `.pdf`.
-4. Add new keywords that you want to use frequently in file names (e.g. a module code when downloading the modules' lecture notes) in the `Add Name` text box. A new button with the keyword should appear.
+4. Add new keywords that you want to use frequently in file names (e.g. a module code when downloading the modules' lecture notes) in the `Add Name` text box. A new button with the keyword should appear. These buttons will remain there every time you reload the extension.
 5. Now if you click on the newly created keyword buttons, the keyword will be appended to the end of the `Final File Name` text box.
 6. You can also manually edit the `Final File Name` text box.
 7. Click on `Save To` button to choose the directory to save the PDF file. The name of the file is same as the one in the `Final File Name` text box.
+8. You can also delete any keyword button by pressing the `X` button.
