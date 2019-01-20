@@ -1,18 +1,21 @@
-PDF Namer
+Team Name: SupremeAlgo
+Project Name: PDFNamer
 ==
-## How to use the extension
-
-1. When you need to download a file online, load this extension
-2. Add new keywords that you want to use frequently in file names (e.g. a module code when downloading the modules' lecture notes)
-3. If you have added certain keywords you need before, the extension will save them for you! You can call them back by selecting one or a set of keywords from the keywords box. This will append the word in the final text box
-4. You can also manually edit the final text box if you want to add few more letters from the keyword you selected (e.g. module code + '1')
-5. Click on "Save To" to choose the directory to save the pdf file. The name of the file is same as the one in the final text box
-
 # Inspiration
-When we download a new file online, it is often tedious to key in all the words to rename the file. For example, if a student is downloading lecture notes of a module CS2040 and trying to rename each note as CS2040_1, CS2040_2, and so on, he or she always need to type ‘CS2040’ repeatedly. This will save a lot of time typing duplicate words.
+When we download a new PDF file online, it is often tedious to key in all the words to rename the file. For example, if a student is downloading lecture notes of a module `CS1010` and trying to rename each note as `CS1010-lecture-1.pdf`, `CS1010-lecture-2.pdf`, `CS1010-lecture-3.pdf` etc, he or she always need to type the keywords `CS1010` and `lecture` repeatedly. Much time would be conserved if he or she can save the keywords somewhere so as to reuse them next time.
 
 # What it does
-This chrome extension saves keywords that a user want to repeatedly use when renaming a file name. Going back to the previous example, a user can save ‘CS2040’ as a keyword in the popup window. Then, the user can use the keyword by clicking it from the keywords box in the popup window whenever renaming CS2040C lecture notes without typing out all the letters!
+This chrome extension saves keywords that a user want to repeatedly use when renaming a file name when downloading a PDF file. Going back to the previous example, a user can save the keywords `CS1010` and `lecture` in the extension. Then, the user can use the keyword by clicking it from the keywords box in the extension whenever he wants to rename a similar PDF file when downloading it.
+
+## How to install and use this Google Chrome extension
+
+1. Clone this repo into a local drive.
+2. In Google Chrome, go to `chrome://extensions/` and turn `Developer Mode` to ON. Then click on `Load Unpacked` and add the cloned folder.
+3. Go to a PDF file on a website and open the extension. The extension can only be loaded if it is on a page that ends with `.pdf`.
+4. Add new keywords that you want to use frequently in file names (e.g. a module code when downloading the modules' lecture notes) in the `Add Name` text box. A new button with the keyword should appear.
+5. Now if you click on the newly created keyword buttons, the keyword will be appended to the end of the `Final File Name` text box.
+6. You can also manually edit the `Final File Name` text box.
+7. Click on `Save To` button to choose the directory to save the PDF file. The name of the file is same as the one in the `Final File Name` text box.
 
 # How we built it
 A popup window with a "add me" button reads the input a user key in. It saves the data locally so that it can be recovered whenever a user trying to download a file. Each keyword added works as a button that can add the corresponding keyword into a final text box when the button is clicked.
