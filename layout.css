@@ -32,3 +32,33 @@
 body {
   width: 300px;
 }
+
+/* Container for button*/
+.container {
+  width: auto;
+  height: 15px;
+  display: inline-block;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #777;
+  padding: 5px;
+  margin: 1px;
+}
+
+.dialog{
+  display: inline;
+}
+
+[class*='close-'] {
+  color: #777;
+  font: 10px/100% arial, sans-serif;
+  right: 5px;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #fff;
+  top: 5px;
+}
+
+.close-thik:after {
+  content: 'x '; /* UTF-8 symbol */
+  padding-left: 3px;
+}

@@ -45,9 +45,13 @@ function saveChanges() {
 function createAddMeButton(buttonID, fileName){
   document.getElementById('addNewControls').insertAdjacentHTML(
     'beforeend',
+    '<div class="container">' +
+    '<div class="dialog">' +
     '<input type="button" id="' + buttonID + '" value="' + fileName + '">'
+    + '</div>'
+    + '<a href="#" class="close-thik ' + buttonID + '"></a>'+
+    '</div>'
   );
-
   //e.prventDefault();
   document.getElementById(""+buttonID).addEventListener('click', function () {
       var current = document.getElementById('finalTextBox').value;
@@ -57,32 +61,42 @@ function createAddMeButton(buttonID, fileName){
       current += fileName;
       document.getElementById('finalTextBox').value = current;
   });
+
+  document.getElementsByClassName('close-thik ' + buttonID)[0].addEventListener('click', function(){
+     this.parentNode.parentNode.removeChild(this.parentNode);
+  });
 }
 
 function addMeButtonClicked() {
-  var buttonID = 0;
-  // load buttonIDMap from storage
-  chrome.storage.sync.get(['buttonIDMap'], function(result){
-    var buttonIDMap = result.buttonIDMap;
-    if(typeof buttonIDMap === 'undefined'){
-      buttonIDMap = {};
-    } else {
-      buttonID = Object.keys(buttonIDMap).length;
-    }
+  var fileName = document.getElementById('addMeBox').value;
 
-    var fileName = document.getElementById('addMeBox').value;
-    createAddMeButton(buttonID, fileName);
-    buttonIDMap[buttonID] = fileName;
+  if(!fileName){
+    alert("Please enter a filename!")
+  } else {
+    var buttonID = 0;
+    // load buttonIDMap from storage
+    chrome.storage.sync.get(['buttonIDMap'], function(result){
+      var buttonIDMap = result.buttonIDMap;
+      if(typeof buttonIDMap === 'undefined'){
+        buttonIDMap = {};
+      } else {
+        buttonID = Object.keys(buttonIDMap).length;
+      }
 
-    // Save it using the Chrome extension storage API.
-    chrome.storage.sync.set({'buttonIDMap': buttonIDMap}, function() {
-      // Notify that we saved.
-      console.log('Settings saved. Button ID = ' + buttonID + ". fileName = " + fileName);
-      console.log('buttonIDMap: ' + buttonIDMap[buttonID]);
+      fileName = document.getElementById('addMeBox').value;
+      createAddMeButton(buttonID, fileName);
+      buttonIDMap[buttonID] = fileName;
 
-      buttonID += 1;
+      // Save it using the Chrome extension storage API.
+      chrome.storage.sync.set({'buttonIDMap': buttonIDMap}, function() {
+        // Notify that we saved.
+        console.log('Settings saved. Button ID = ' + buttonID + ". fileName = " + fileName);
+        console.log('buttonIDMap: ' + buttonIDMap[buttonID]);
+
+        buttonID += 1;
+      });
     });
-  });
+  }
 }
 
 // function clickAddMeButton() {
