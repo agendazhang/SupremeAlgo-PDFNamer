@@ -51,6 +51,9 @@ function createAddMeButton(buttonID, fileName){
   //e.prventDefault();
   document.getElementById(""+buttonID).addEventListener('click', function () {
       var current = document.getElementById('finalTextBox').value;
+      if(current){
+        current += "-";
+      }
       current += fileName;
       document.getElementById('finalTextBox').value = current;
   });
