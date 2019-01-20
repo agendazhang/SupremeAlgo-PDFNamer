@@ -6,24 +6,10 @@ function loadStorage() {
         var buttonID = key;
         var fileName = buttonIDMap[key];
 
-        document.getElementById('addNewControls').insertAdjacentHTML(
-          'beforeend',
-          '<input type="button" id="' + buttonID + '" value="' + fileName + '">'
-        );
-        //e.prventDefault();
-
-
-        document.getElementById(""+buttonID).addEventListener('click', function () {
-          var current = document.getElementById('finalTextBox').value;
-
-          current += fileName;
-          document.getElementById('finalTextBox').value = current;
-        });
+        createAddMeButton(buttonID, fileName);
       }()); // immediate invocation
     }
   });
-
-
     // for (var i = 0; i < size; i++) {
     //     var data = chrome.storage.sync.get([i],
     //         function(arrayItems) {
@@ -42,21 +28,35 @@ function loadStorage() {
 }
 
 function saveChanges() {
-        // Get a value saved in a form.
-        var theValue = textarea.value;
-        // Check that there's some code there.
-        if (!theValue) {
-          message('Error: No value specified');
-          return;
-        }
-        // Save it using the Chrome extension storage API.
-        chrome.storage.sync.set({'value': theValue}, function() {
-          // Notify that we saved.
-          message('Settings saved');
-        });
-      }
+  // Get a value saved in a form.
+  var theValue = textarea.value;
+  // Check that there's some code there.
+  if (!theValue) {
+    message('Error: No value specified');
+    return;
+  }
+  // Save it using the Chrome extension storage API.
+  chrome.storage.sync.set({'value': theValue}, function() {
+    // Notify that we saved.
+    message('Settings saved');
+  });
+}
 
-function create() {
+function createAddMeButton(buttonID, fileName){
+  document.getElementById('addNewControls').insertAdjacentHTML(
+    'beforeend',
+    '<input type="button" id="' + buttonID + '" value="' + fileName + '">'
+  );
+
+  //e.prventDefault();
+  document.getElementById(""+buttonID).addEventListener('click', function () {
+      var current = document.getElementById('finalTextBox').value;
+      current += fileName;
+      document.getElementById('finalTextBox').value = current;
+  });
+}
+
+function addMeButtonClicked() {
   var buttonID = 0;
   // load buttonIDMap from storage
   chrome.storage.sync.get(['buttonIDMap'], function(result){
@@ -68,18 +68,7 @@ function create() {
     }
 
     var fileName = document.getElementById('addMeBox').value;
-    document.getElementById('addNewControls').insertAdjacentHTML(
-      'beforeend',
-      '<input type="button" id="' + buttonID + '" value="' + fileName + '">'
-    );
-
-    //e.prventDefault();
-    document.getElementById(""+buttonID).addEventListener('click', function () {
-        var current = document.getElementById('finalTextBox').value;
-        current += fileName;
-        document.getElementById('finalTextBox').value = current;
-    });
-
+    createAddMeButton(buttonID, fileName);
     buttonIDMap[buttonID] = fileName;
 
     // Save it using the Chrome extension storage API.
@@ -144,5 +133,5 @@ var urlWritten;
     });
     loadStorage();
 
-    document.getElementById('addMeButton').addEventListener('click', create);
+    document.getElementById('addMeButton').addEventListener('click', addMeButtonClicked);
     document.getElementById('savebutton').addEventListener('click', saveButtonClicked);
